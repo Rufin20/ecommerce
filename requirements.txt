@@ -2,7 +2,7 @@ autopep8==1.4.4
 certifi==2019.3.9
 chardet==3.0.4
 defusedxml==0.6.0
-Django==2.2.24
+Django>=3.0.6,<3.1
 django-allauth==0.39.1
 django-countries==5.3.3
 django-crispy-forms==1.7.2
@@ -20,3 +20,4 @@ requests-oauthlib==1.2.0
 sqlparse==0.2.4
 stripe==2.27.0
 urllib3
+uWSGI>=2.0.18,<2.1

@@ -1,15 +1,21 @@
-from .base import *
+import os
+from distutils.command.config import config
 
-DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1']
+SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
+DEBUG = bool(int(os.environ.get('DEBUG', 0)))
+ALLOWED_HOSTS = []
+ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS')
+if ALLOWED_HOSTS_ENV:
+    ALLOWED_HOSTS.extend(ALLOWED_HOSTS_ENV.split(','))
 
-INSTALLED_APPS += [
-    'debug_toolbar'
-]
 
-MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
 
-STATIC_ROOT=/static_in_env
+### static files (css, javascripts, Images)
+STATIC_URL = '/static/static/'
+MEDIA_URL = '/static/media/'
+
+STATIC_ROOT = '/vol/web/static'
+MEDIA_ROOT = '/vol/web/media'
 
 # DEBUG TOOLBAR SETTINGS
 
@@ -51,4 +57,4 @@ DATABASES = {
 
 STRIPE_PUBLIC_KEY = config('STRIPE_TEST_PUBLIC_KEY')
 STRIPE_SECRET_KEY = config('STRIPE_TEST_SECRET_KEY')
-© 2021 GitHub, Inc.
+
