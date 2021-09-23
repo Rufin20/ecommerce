@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.7"
    
 services:
   db:
@@ -9,26 +9,27 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  web:
-    build: .
+  app:
+    build:
+      context: .
     container_name: DJANGOXDOCKERNAME
-    command: >
-      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:3003"
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/ecommerce
-      - ./static_in_env:/static_in_env
-    ports:
-      - "8050:3003"
-    depends_on:
-      - db
-  nginx:
-    image: nginx:latest
-    container_name: NGINXDOCKERNAME
     ports:
       - "8000:8000"
-    volumes:
-      - .:/ecommerce
-      - ./config/nginx:/etc/nginx/conf.d
-      - ./static_in_env:/static_in_env
+    environment:
+      - DEBUG=1
     depends_on:
-      - web
+      - db
+#  nginx:
+#    image: nginx:latest
+#    container_name: NGINXDOCKERNAME
+#    ports:
+#      - "8000:8000"
+#    volumes:
+#      - .:/ecommerce
+#      - ./proxy/nginx:/etc/nginx/conf.d
+#      - ./static_in_env:/static_in_env
+#    depends_on:
+#      - app

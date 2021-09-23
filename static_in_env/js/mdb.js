@@ -4107,7 +4107,7 @@ module.exports = function(Chart) {
 	Chart.controllers = {};
 
 	/**
-	 * Initializes the given config with global and chart default values.
+	 * Initializes the given proxy with global and chart default values.
 	 */
 	function initConfig(config) {
 		config = config || {};
@@ -4127,7 +4127,7 @@ module.exports = function(Chart) {
 	}
 
 	/**
-	 * Updates the config of the chart
+	 * Updates the proxy of the chart
 	 * @param chart {Chart} chart to update the options for
 	 */
 	function updateConfig(chart) {
@@ -4192,7 +4192,7 @@ module.exports = function(Chart) {
 			// Add the chart instance to the global namespace
 			Chart.instances[me.id] = me;
 
-			// Define alias to the config data: `chart.data === chart.config.data`
+			// Define alias to the proxy data: `chart.data === chart.proxy.data`
 			Object.defineProperty(me, 'data', {
 				get: function() {
 					return me.config.data;
@@ -5525,7 +5525,7 @@ module.exports = function() {
 				var sval = source[key];
 
 				if (key === 'scales') {
-					// scale config merging is complex. Add our own function here for that
+					// scale proxy merging is complex. Add our own function here for that
 					target[key] = helpers.scaleMerge(tval, sval);
 				} else if (key === 'scale') {
 					// used in polar area & radar charts since there is only one scale
@@ -8278,7 +8278,7 @@ module.exports = {
 	// Use a registration function so that we can move to an ES6 map when we no longer need to support
 	// old browsers
 
-	// Scale config defaults
+	// Scale proxy defaults
 	defaults: {},
 	registerScaleType: function(type, scaleConstructor, scaleDefaults) {
 		this.constructors[type] = scaleConstructor;
@@ -10859,7 +10859,7 @@ function readUsedSize(element, property) {
 
 /**
  * Initializes the canvas style and render size without modifying the canvas display size,
- * since responsiveness is handled by the controller.resize() method. The config is used
+ * since responsiveness is handled by the controller.resize() method. The proxy is used
  * to determine the aspect ratio to apply in case no explicit height has been specified.
  */
 function initCanvas(canvas, config) {
@@ -12513,7 +12513,7 @@ var scaleService = require(34);
 
 module.exports = function() {
 
-	// Default config for a category scale
+	// Default proxy for a category scale
 	var defaultConfig = {
 		position: 'bottom'
 	};
